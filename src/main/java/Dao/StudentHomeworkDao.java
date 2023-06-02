@@ -82,6 +82,23 @@ public class StudentHomeworkDao {
     	}
     	return cus;
     }
+    public List<StudentHomework> queryStudentHomeworkBystudentidlist(String studentid){
+   	 List<StudentHomework> clist=new ArrayList<StudentHomework>();
+   	 String sql="select * from student_homework where studentid="+"'"+studentid+"'";
+   	 List<Object[]> cusarr=SQLHelper.executeQueryList(sql);
+   	 for(Object[] arr:cusarr) {
+   		 StudentHomework c=new StudentHomework();
+   		 c.setStudentid(arr[0].toString());
+   		 c.setHomeworkid(arr[1].toString());
+   		 c.setSubmittime((LocalDateTime) arr[2]);
+   		 c.setContent(arr[3].toString());
+   		 c.setStatus(arr[4].toString());
+   		 c.setScore((Double) arr[5]);
+   		  c.setFilelocation(arr[6].toString());
+   		 clist.add(c);
+   	 }
+   	 return clist;
+   }
     public StudentHomework queryStudentHomeworkBystudentid(String studentid) {
     	StudentHomework cus=null;
     	String sql="select * from student_homework where studentid="+"'"+studentid+"'";

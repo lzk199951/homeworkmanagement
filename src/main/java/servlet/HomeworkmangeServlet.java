@@ -53,7 +53,7 @@ public class HomeworkmangeServlet extends HttpServlet {
 			} // 得到老师教的学生st1
 			List<Student> st2 = new ArrayList();
 			for (Student c : st1) {
-				str.addAll((Collection<? extends StudentHomework>) stus.queryStudentHomeworkBystudentid(c.getStuentid()));
+				str.addAll(stus.queryStudentHomeworkBystudentidlist(c.getStuentid()));
 				if (stus.queryStudentHomeworkBystudentid(c.getStuentid()) == null) {
 					st2.add(c);
 				}
