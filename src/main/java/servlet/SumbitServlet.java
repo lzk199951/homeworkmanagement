@@ -82,7 +82,7 @@ public class SumbitServlet extends HttpServlet {
                            file.mkdirs();                                                                  
                          }
                         item.write(new File(folder + "/" + item.getName()));
-                    	 filePath=folder + "/" + item.getName();
+                    	 filePath= item.getName();
                     	//上传的文件
                          System.out.println("表单项的name："+item.getFieldName());
                          System.out.println("上传的文件名为："+item.getName());
