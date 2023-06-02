@@ -114,8 +114,8 @@ body {
 					out.println("<td>" + h.getContent() + "</td>");
 					out.println("<td>" + h.getStatus() + "</td>");
 					out.println("<td>" + h.getScore() + "</td>");
-					out.println("<td><a href='sumbit.jsp?id=" + h.getStudentid() + "&homeworkid=" + h.getHomeworkid() + "'>重新提交"
-					+ "</a></td>");
+					out.println("<td><a href='http://localhost:8080/test/upload/?id=" + h.getStudentid() + "&homeworkid=" + h.getHomeworkid() + "'>重新提交"
+							+ "</a></td>");
 					out.println("</tr>");
 				}				%>
 

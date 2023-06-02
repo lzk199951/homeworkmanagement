@@ -75,7 +75,7 @@ public class SumbitServlet extends HttpServlet {
                         System.out.println("表单项的name："+item.getFieldName());
                         System.out.println("值为："+value);
                     }else{
-                    	String folder="D:/Data/upload";
+                    	String folder="D:/eclipseworkplace/.metadata/.plugins/org.eclipse.wst.server.core/tmp0/wtpwebapps/test/upload";
                         //String uploadPath = this.getServletContext().getRealPath("/WEB-INF/upload");
                          File file = new File(folder);
                          if (!file.exists()) {

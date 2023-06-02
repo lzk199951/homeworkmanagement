@@ -76,7 +76,7 @@ body {
 </head>
 <body>
 
-	<div class="login">
+<div class="login">
 		<table width="60%" border=1 class="hovertable">
 			<thead>
 				<tr>
@@ -109,23 +109,25 @@ body {
 					<th>作业内容</th>
 					<th>作业状态</th>
 					<th>得分</th>
+					<th>学生id</th>
 					<th>sf</th>
 				</tr>
 
 			</thead>
 			<tbody>
 			<% 
-				for (StudentHomework h : a1) {
-					out.println(
-					"<tr onmouseover=\"this.style.backgroundColor='#ffff66';\" onmouseout=\"this.style.backgroundColor='#d4e3e5';\">");
-					out.println("<td>" + h.getHomeworkid() + "</td>");
-					out.println("<td>" + h.getContent() + "</td>");
-					out.println("<td>" + h.getStatus() + "</td>");
-					out.println("<td>" + h.getScore() + "</td>");
-					out.println("<td><a href='sumbit.jsp?id=" + h.getStudentid() + "&homeworkid=" + h.getHomeworkid() + "'>查看下载"
-					+ "</a></td>");
-					out.println("</tr>");
-				}	%>		
+			for (StudentHomework h : a1) {
+				out.println(
+				"<tr onmouseover=\"this.style.backgroundColor='#ffff66';\" onmouseout=\"this.style.backgroundColor='#d4e3e5';\">");
+				out.println("<td>" + h.getHomeworkid() + "</td>");
+				out.println("<td>" + h.getContent() + "</td>");
+				out.println("<td>" + h.getStatus() + "</td>");
+				out.println("<td>" + h.getScore() + "</td>");
+				out.println("<td>" + h.getStudentid() + "</td>");
+				out.println("<td><a href='http://localhost:8080/test/upload/?id=" + h.getStudentid() + "&homeworkid=" + h.getHomeworkid() + "'>重新提交"
+						+ "</a></td>");
+				out.println("</tr>");
+			}		%>		
 
 
 

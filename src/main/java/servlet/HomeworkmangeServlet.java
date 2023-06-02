@@ -53,8 +53,9 @@ public class HomeworkmangeServlet extends HttpServlet {
 			} // 得到老师教的学生st1
 			List<Student> st2 = new ArrayList();
 			for (Student c : st1) {
-				str.addAll(stus.queryStudentHomeworkBystudentidlist(c.getStuentid()));
-				if (stus.queryStudentHomeworkBystudentid(c.getStuentid()) == null) {
+				List<StudentHomework> tempList=	stus.queryStudentHomeworkBystudentidlist(c.getStuentid());
+				str.addAll(tempList);
+				if (tempList == null || tempList.isEmpty()) {
 					st2.add(c);
 				}
 			}
@@ -62,34 +63,14 @@ public class HomeworkmangeServlet extends HttpServlet {
 			request.setAttribute("hr", hr); // 布置的作业
 			request.setAttribute("st2", st2); // 未交作业的学生名单
 			request.getRequestDispatcher("homeworkview.jsp").forward(request, response);
+		}else if(homework.equals("1")) {
+			
+			
+			request.getRequestDispatcher("addhomework.jsp").forward(request, response);
 		}
 
 	}
 
-//		if(homework.equals("1")) {
-//			String suid=request.getParameter("homeworkdeleteid");
-//			homework stu=new homework();
-//			stu=sDao.queryhomeworkByID(suid);
-//			if(stu==null) 
-//			{request.setAttribute("homeworkmsg", "无该学生");
-//			request.getRequestDispatcher("homeworkmanger.jsp").forward(request, response);
-//				}else {
-//					sDao.deletehomeworkByID(suid);
-//					request.setAttribute("homeworkmsg", "删除成功");
-//					request.getRequestDispatcher("homeworkmanger.jsp").forward(request, response);
-//				}
-//			}
-//		if(homework.equals("2"))
-//		{
-//			List<homework> allstu=new ArrayList();
-//		   allstu=sDao.queryAllhomework();
-//		   request.setAttribute("allstu", allstu);
-//			request.getRequestDispatcher("allhomeworkinformation.jsp").forward(request, response);
-//		}
-//		
-//		
-//		
-//}
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		doGet(request, response);
