@@ -85,6 +85,7 @@ body {
 					<th>作业状态</th>
 					<th>得分</th>
 					<th>sf</th>
+					<th>下载</th>
 				</tr>
 
 			</thead>
@@ -104,6 +105,7 @@ body {
 					out.println("<td>" + "未交" + "</td>");
 					out.println("<td>" + "未评" + "</td>");
 					out.println("<td><a href='sumbit.jsp?id=" + u1 + "&homeworkid=" + h.getHomeworkid() + "'>提交" + "</a></td>");
+					out.println("<td></td>");
 					out.println("</tr>");
 				}
 
@@ -114,8 +116,8 @@ body {
 					out.println("<td>" + h.getContent() + "</td>");
 					out.println("<td>" + h.getStatus() + "</td>");
 					out.println("<td>" + h.getScore() + "</td>");
-					out.println("<td><a href='http://localhost:8080/test/upload/?id=" + h.getStudentid() + "&homeworkid=" + h.getHomeworkid() + "'>重新提交"
-							+ "</a></td>");
+					out.println("<td><a href='sumbit.jsp?id=" + u1 + "&homeworkid=" + h.getHomeworkid() + "'>重新提交" + "</a></td>");
+					out.println("<td><a href='http://localhost:8080/test/upload/" + h.getFilelocation() + "'>下载</a></td>");
 					out.println("</tr>");
 				}				%>
 
