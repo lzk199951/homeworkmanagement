@@ -45,7 +45,7 @@ public class StudentDao {
     			+ "`nation`,"
     			+ "`status`,"
     			+ "`address`,"
-    			+ "`classid`) values(?,?,?,?,?,?,?,?)";
+    			+ "`classid`) values(?,?,?,?,?,?,?,?,?)";
     	r=SQLHelper.executeUpdateByParams(sql,st.getStuentid(),st.getName(),
     			st.getPassword(),st.getSex(),st.getBirth(),st.getNation(),st.getStatus(),st.getAddress(),st.getClassid());
     	return r;

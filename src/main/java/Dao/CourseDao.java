@@ -83,7 +83,24 @@ public class CourseDao {
 		return clist;
 		
 	}
-
+    
+	public List<Course>queryCourseByTeacherID(String id) {
+		List<Course> clist = new ArrayList<Course>();
+		String sql = "select * from course where teacherId='" + id + "'";
+		List<Object[]> cuarr = SQLHelper.executeQueryList(sql);
+		for (Object[] arr : cuarr) {
+			Course c = new Course();
+			c.setCourseid(arr[0].toString());
+			c.setCname(arr[1].toString());
+			c.setStarttime((LocalDateTime) arr[2]);
+			c.setEndtime((LocalDateTime) arr[3]);
+			c.setTeacherid(arr[4].toString());
+			c.setClassid(arr[5].toString());
+			clist.add(c);
+		}
+		return clist;
+		
+	}
 	public Course queryCourseByTeacherid(String id) {
 		Course cus = null;
 		String sql = "select * from course where teacherId='" + id + "'";

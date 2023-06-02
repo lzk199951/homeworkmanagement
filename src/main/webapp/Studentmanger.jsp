@@ -13,7 +13,7 @@ body {
     background-size: cover;
     font-family: "微软雅黑", sans-serif;
 }
-.login { 
+.student { 
     position: absolute;
     top: 50%;
     left: 50%;
@@ -21,7 +21,7 @@ body {
     width:300px;
     height:300px;
 }
-.login h1 { 
+.student h1 { 
     color:#555555;
     text-shadow: 0px 10px 10px #CDC673;
     letter-spacing:2px;text-align:center;
@@ -50,28 +50,27 @@ form button{
 </head>
 <body> 
 <div class="headtop"></div>
-<div class="login">
-  <h1>Login</h1>   
-    <form  method="post" action="loginServlet">	
-           <input type="text" name="user_id" placeholder="用户名" required="required">
-           <input type="password" name="pwd" placeholder="密  码" required="required">
-           <button type="submit" name="login" value="0">教师登录</button>
-           <button type="submit" name="login" value="1">学生登录</button> 
-           <button type="submit" name="login" value="2">管理员登录</button>      		
+<div class="student">
+  <h1>studentmange</h1>   
+    <form  method="post" action="AddStudentServlet">	
+           学生Id: <input type="text" name="studentid">
+           学生姓名:<input type="text" name="studentname">
+           学生密码: <input type="text" name="studentpassword">
+           学生班级:<input type="text" name="studentclass">
+           
+           <button type="submit" name="student" value="0">增加学生</button>
+           
+           待删除学号:<input type="text" name="studentdeleteid">
+           <button type="submit" name="student" value="1">删除学生</button> 
+           查看所教课程班级的学生:
+           <button type="submit" name="student" value="2">查看学生信息</button>      		
     </form>	  
     <%    
-    if( request.getAttribute("loginmsg")!=null){%>
-    	
-    	<%=request.getAttribute("loginmsg") %>
-    	
-    	<%} 
     if( request.getAttribute("studentmsg")!=null){%>
-	
-	<%=request.getAttribute("studentmsg") %>
-	
-	<%}	
     	
-    	%>
+    	<%=request.getAttribute("studentmsg") %>
+    	
+    	<%} %>
     
     
  

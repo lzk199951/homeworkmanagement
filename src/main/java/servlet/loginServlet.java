@@ -25,10 +25,18 @@ public class loginServlet extends HttpServlet {
 		if(login.equals("0")) {
 		Teacher tus=new Teacher();
 		tus=tDao.queryTeacherByID(user_id);
+		if(tus==null) {
+			request.setAttribute("loginmsg", "没有此老师");
+			request.getRequestDispatcher("login.jsp").forward(request, response);
+		}
 		if(pwd.equals(tus.getPassword())) {
-			response.sendRedirect("Teacher.jsp");
+			String teacherid=user_id;
+			request.setAttribute("teacherid",teacherid);
+			request.getRequestDispatcher("Teacher.jsp").forward(request, response);
 		}else {
-			response.sendRedirect("login.jsp");
+			request.setAttribute("loginmsg", "密码错误");
+			request.getRequestDispatcher("login.jsp").forward(request, response);
+		
 		}
 		}
 		if(login.equals("1")) {

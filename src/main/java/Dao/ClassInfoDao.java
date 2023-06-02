@@ -75,4 +75,21 @@ public class ClassInfoDao {
 		return cus;
 		
 	}
+	
+	
+	public List<ClassInfo> queryClassInfoByteacherid(String id ) {
+		List<ClassInfo> clist = new ArrayList<ClassInfo>();
+		String teacherid=id;
+		String sql = "select * from class where teacherid="+"'"+teacherid+"'";
+		List<Object[]> cusarr = SQLHelper.executeQueryList(sql);
+		for (Object[] arr : cusarr) {
+			ClassInfo c = new ClassInfo();
+			c.setClassid(arr[0].toString());
+			c.setClassname(arr[1].toString());
+			
+			c.setTeacherid(arr[2].toString());
+			clist.add(c);
+		}
+		return clist;
+	}
 }

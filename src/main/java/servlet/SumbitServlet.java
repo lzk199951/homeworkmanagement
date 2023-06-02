@@ -1,11 +1,22 @@
 package servlet;
 
 import java.io.*;
+import java.io.File;
 import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.*;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
+
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.FileItemFactory;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
+
 import com.jspsmart.upload.*;
 import Dao.*;
 import Model.*;
@@ -22,8 +33,71 @@ public class SumbitServlet extends HttpServlet {
 			throws ServletException, IOException {
 		String user_id = (String) request.getSession().getAttribute("user_id");
 		String homework_id = (String) request.getParameter("homeworkid");
+		// SetCharacterEncoding = UTF-8
+		request.setCharacterEncoding("utf-8");
+        
+        // Judge multipart or not
+        boolean isMultipart = ServletFileUpload.isMultipartContent(request);
+        Map<String,String> params = new HashMap<String,String>();
+        String filePath=null;
 
-		String Content = (String) request.getParameter("homeworkcontent");
+        // Multipart form
+        if (isMultipart)
+        {
+            // Create a factory for disk-based file items
+            FileItemFactory factory = new DiskFileItemFactory();
+ 
+            // Create a new file upload handler
+            ServletFileUpload upload = new ServletFileUpload(factory);
+
+            try
+            {
+                // Parse the request
+                List<FileItem> items = upload.parseRequest(request);
+ 
+                // Process the uploaded items
+                Iterator<FileItem> iter = items.iterator();
+ 
+                // Do list
+                while (iter.hasNext())
+                {
+                    FileItem item = iter.next();
+                    // Form Field
+                    if (item.isFormField())
+                    {
+                        // Field name
+                        String name = item.getFieldName();
+                        // Set charset = UTF-8 Default = ISO-8859-1 
+                        // Get field value
+                        String value = item.getString("utf-8");
+                        // Put into map
+                        params.put(name, value.trim());
+                        System.out.println("表单项的name："+item.getFieldName());
+                        System.out.println("值为："+value);
+                    }else{
+                    	String folder="D:/Data/upload";
+                        //String uploadPath = this.getServletContext().getRealPath("/WEB-INF/upload");
+                         File file = new File(folder);
+                         if (!file.exists()) {
+                           file.mkdirs();                                                                  
+                         }
+                        item.write(new File(folder + "/" + item.getName()));
+                    	 filePath=folder + "/" + item.getName();
+                    	//上传的文件
+                         System.out.println("表单项的name："+item.getFieldName());
+                         System.out.println("上传的文件名为："+item.getName());
+                         System.out.println("上传的文件名为："+filePath);
+                    }
+                }
+            }
+            catch (Exception fue)
+            {
+                fue.printStackTrace();
+            }
+        }
+        
+
+		String Content = params.get("homeworkcontent");
 		StudentHomeworkDao sh = new StudentHomeworkDao();
 		StudentHomework st = sh.queryStudentHomeworkBystudentid(user_id, homework_id);
 		if (st == null) {
@@ -38,7 +112,7 @@ public class SumbitServlet extends HttpServlet {
 			sh.addStudentHomework(st);
 			
 			request.getRequestDispatcher("QueryHomeworkContentServlet?login=0").forward(request, response);
-		} else if(st.getStatus()=="已交"){
+		} else if("已交".equals(st.getStatus())){
 			LocalDateTime dateTime = LocalDateTime.now();
 			st.setContent(Content);
 			st.setSubmittime(dateTime);
@@ -50,37 +124,6 @@ public class SumbitServlet extends HttpServlet {
 			request.getRequestDispatcher("QueryHomeworkContentServlet?login=0").forward(request, response);
 		}
 
-		PrintWriter out = response.getWriter();
-		response.setContentType("text/html;charset=utf-8");
-		try {
-			SmartUpload su = new SmartUpload();
-			// 上传初始化
-			su.initialize(config, request, response);
-
-			// 上传文件
-			su.upload();
-			// 读取当前网站实际物理路径
-			String rootpath = config.getServletContext().getRealPath("/");
-			String uname = su.getRequest().getParameter("uname");
-			/* 根据用户名创建一个目录专门保存用户的图片 */
-			java.io.File f = new java.io.File(rootpath + uname);
-			System.out.print(rootpath + uname);
-			if (!f.exists())
-				f.mkdir();
-			// 将上传文件全部保存到指定目录
-			int count = su.save(f.getAbsolutePath());
-			// 逐一提取上传文件信息，同时可保存文件。
-			System.out.println("文件数" + su.getFiles().getCount());
-			for (int i = 0; i < su.getFiles().getCount(); i++) {
-				com.jspsmart.upload.File file = su.getFiles().getFile(i);
-				// 若文件不存在则继续
-				if (file.isMissing())
-					continue;
-				file.saveAs(f.getAbsolutePath() + "/" + file.getFileName(), su.SAVE_PHYSICAL);
-			}
-			out.print("用户图片保存成功");
-		} catch (Exception ex) {
-		}
 	}
 	
 	 protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException, ServletException{

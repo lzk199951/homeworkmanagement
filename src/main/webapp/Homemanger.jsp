@@ -13,7 +13,7 @@ body {
     background-size: cover;
     font-family: "微软雅黑", sans-serif;
 }
-.login { 
+.student { 
     position: absolute;
     top: 50%;
     left: 50%;
@@ -21,7 +21,7 @@ body {
     width:300px;
     height:300px;
 }
-.login h1 { 
+.student h1 { 
     color:#555555;
     text-shadow: 0px 10px 10px #CDC673;
     letter-spacing:2px;text-align:center;
@@ -50,28 +50,23 @@ form button{
 </head>
 <body> 
 <div class="headtop"></div>
-<div class="login">
-  <h1>Login</h1>   
-    <form  method="post" action="loginServlet">	
-           <input type="text" name="user_id" placeholder="用户名" required="required">
-           <input type="password" name="pwd" placeholder="密  码" required="required">
-           <button type="submit" name="login" value="0">教师登录</button>
-           <button type="submit" name="login" value="1">学生登录</button> 
-           <button type="submit" name="login" value="2">管理员登录</button>      		
+<div class="student">
+  <h1>studentmange</h1>   
+    <form  method="post" action="HomeworkmangeServlet">	
+    
+          
+           <button type="submit" name="homework" value="0">查看作业</button>
+  
+           <button type="submit"  name="homework"  value="1">布置作业</button> 
+    
+           <button type="submit"  name="homework"  value="2">批改作业</button>      		
     </form>	  
     <%    
-    if( request.getAttribute("loginmsg")!=null){%>
+    if( request.getAttribute("homeworkmsg")!=null){%>
     	
-    	<%=request.getAttribute("loginmsg") %>
+    	<%=request.getAttribute("homeworkmsg") %>
     	
-    	<%} 
-    if( request.getAttribute("studentmsg")!=null){%>
-	
-	<%=request.getAttribute("studentmsg") %>
-	
-	<%}	
-    	
-    	%>
+    	<%} %>
     
     
  

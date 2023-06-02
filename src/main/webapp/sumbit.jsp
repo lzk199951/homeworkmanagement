@@ -1,9 +1,9 @@
- <%@page contentType="text/html;charset=gb2312"%>
+ <%@page contentType="text/html;charset=utf-8"%>
  <html>
  <body>
-     <Form action="SumbitServlet?" method="post" ENCTYPE="multipart/form-data">
-        ×÷ÒµÄÚÈÝ£º<input type="text" name="homeworkcontent"><br>
-         ¸½¼þ£º<input type="file" name="userimage"><br>
+     <Form action="SumbitServlet?homeworkid=<%out.println(request.getParameter("homeworkid"));%>" method="post" ENCTYPE="multipart/form-data">
+        ä½œä¸šå†…å®¹ï¼š<input type="text" name="homeworkcontent"/><br>
+         é™„ä»¶ï¼š<input type="file" name="userimage"/><br>
  
         
        <input type=submit>

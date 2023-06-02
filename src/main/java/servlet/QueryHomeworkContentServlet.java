@@ -52,11 +52,15 @@ public class QueryHomeworkContentServlet extends HttpServlet {
 				sh.addAll(s1.queryStudentHomeworkBystudentidl(user_id, a.getHomeworkid()));
 			}
 			List<Homework> h2 = new ArrayList();
-			for (StudentHomework a : sh) {
-				for (Homework b : h1) {
-					if (!a.getHomeworkid().equals(b.getHomeworkid())) {
-						h2.add(b);
+			for (Homework b : h1) {
+				boolean isSubmit=false;
+			 	for (StudentHomework a : sh) {
+					if (a.getHomeworkid().equals(b.getHomeworkid())) {
+						isSubmit=true;
 					}
+				}
+				if(!isSubmit){
+					h2.add(b);
 				}
 			}
 			request.setAttribute("h2", h2);

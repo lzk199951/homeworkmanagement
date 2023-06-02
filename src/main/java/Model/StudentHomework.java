@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.util.Date;
 
 public class StudentHomework {
-String studentid,homeworkid,content,status;
+String studentid,homeworkid,content,status,filelocation;
 Double score;
 LocalDateTime submittime;
 public String getStudentid() {
@@ -42,6 +42,12 @@ public LocalDateTime getSubmittime() {
 }
 public void setSubmittime(LocalDateTime submittime) {
 	this.submittime = submittime;
+}
+public String getFilelocation() {
+	return filelocation;
+}
+public void setFilelocation(String filelocation) {
+	this.filelocation = filelocation;
 }
 
 }
